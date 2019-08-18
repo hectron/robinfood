@@ -1,0 +1,29 @@
+class FoodaItem
+  attr_reader :name, :price, :restaurant, :category, :url
+
+  def initialize(name:, price:, restaurant:, category:, url:)
+    @name       = name
+    @price      = price
+    @restaurant = restaurant
+    @category   = category
+    @url        = url
+  end
+
+  def self.from_element(element)
+    restaurant  = element['data-vendor_name']
+    category    = element['data-category']
+    name        = element.find_element(class: 'item__name').text
+    price       = element.find_element(class: 'item__price').text.gsub!('$', '').to_f
+    url         = element.find_element(tag_name: 'a').attribute('href')
+
+    new(name:       name,
+        price:      price,
+        restaurant: restaurant,
+        category:   category,
+        url:        url)
+  end
+
+  def under?(budget)
+    price <= budget
+  end
+end

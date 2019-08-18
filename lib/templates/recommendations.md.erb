@@ -1,0 +1,13 @@
+# Fooda Items Under $<%= '%.2f' % budget.to_s %> for <%= date %>
+
+Found some <%= awesome_description %> recommendations for y'all.
+
+<% items.each_with_index do |recommendations, index| %>
+## <%= "Recommendation #{index + 1} of #{items.size}" %>
+
+<% recommendations.each do |recommendation| %>
+- <%= "[**#{recommendation.name}** from **#{recommendation.restaurant}** _($#{'%.2f' % recommendation.price.to_s})_](#{recommendation.url})" %>
+<% end %>
+
+_Estimated cost before tax: **$<%= '%.2f' % recommendations.map(&:price).reduce(:+).to_s %>**_
+<% end %>
