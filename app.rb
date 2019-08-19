@@ -59,11 +59,11 @@ class Application
     end
 
     def build_recommendations_and_notify(page_information)
-      engine                    = RecommendationEngine.new(page_information)
-      lists_of_recommendations  = NUMBER_OF_RECOMMENDATIONS.times.map { engine.generate }
-      recommendations           = { date: page_information[:date], budget: engine.budget, recommendations: lists_of_recommendations }
+      engine                   = RecommendationEngine.new(page_information)
+      lists_of_recommendations = NUMBER_OF_RECOMMENDATIONS.times.map { engine.generate }
+      recommendations          = { date: page_information[:date], budget: engine.budget, recommendations: lists_of_recommendations }
 
-      SlackAdapter.announce(recommendations, channel: '#accountability-stand')
+      SlackAdapter.announce(recommendations, channel: CHANNELS_TO_POST_TO)
     end
 
     def driver

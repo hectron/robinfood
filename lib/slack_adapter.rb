@@ -3,11 +3,11 @@ require 'slack'
 
 
 class SlackAdapter
-  TOKEN = ENV.fetch('SLACK_TOKEN')
+  TOKEN                = ENV.fetch('SLACK_TOKEN')
   AWESOME_DESCRIPTIONS = ['piping hot', 'b r e a t h t a k i n g', 'mouth-watering', 'flippin\' fresh']
 
   class << self
-    def announce(recommendations, channel: )
+    def announce(recommendations, channel:)
       file_content = build_recommendation_file(recommendations)
 
       client.files_upload(
@@ -34,7 +34,7 @@ class SlackAdapter
     private
 
     def client
-      client = Slack::Web::Client.new(token: TOKEN)
+      Slack::Web::Client.new(token: TOKEN)
     end
   end
 end
