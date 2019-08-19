@@ -10,22 +10,22 @@ class FoodaPage
   end
 
   def parse
-    budget  = parse_budget
-    items   = parse_items
-    date    = parse_date
+    budget = parse_budget
+    items  = parse_items
+    date   = parse_date
 
     {
-      date: date,
+      date:   date,
       budget: budget,
-      items: items
+      items:  items
     }
   end
 
   private
 
   def parse_budget
-    div               = driver.find_element(class: 'marketing__item')
-    budget_as_string  = div.text.split(' ').first
+    div              = driver.find_element(class: 'marketing__item')
+    budget_as_string = div.text.split(' ').first
 
     budget_as_string.gsub!('$', '').to_f
   end
@@ -33,7 +33,7 @@ class FoodaPage
   def parse_items
     items = driver.find_elements(class: 'item')
 
-    items.map {|item| FoodaItem.from_element(item) }
+    items.map { |item| FoodaItem.from_element(item) }
   end
 
   def parse_date
@@ -41,7 +41,7 @@ class FoodaPage
     # it
     # text = driver.find_element(class: 'secondary-bar__label').text
     # text.gsub('delivery ', '')
-    js = "return document.getElementsByClassName('secondary-bar__label')[0].innerHTML"
+    js   = "return document.getElementsByClassName('secondary-bar__label')[0].innerHTML"
     text = driver.execute_script(js)
     text.split(',').last
   end

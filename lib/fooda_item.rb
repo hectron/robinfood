@@ -10,11 +10,11 @@ class FoodaItem
   end
 
   def self.from_element(element)
-    restaurant  = element['data-vendor_name']
-    category    = element['data-category']
-    name        = element.find_element(class: 'item__name').text
-    price       = element.find_element(class: 'item__price').text.gsub!('$', '').to_f
-    url         = element.find_element(tag_name: 'a').attribute('href')
+    restaurant = element['data-vendor_name']
+    category   = element['data-category']
+    name       = element.find_element(class: 'item__name').text
+    price      = element.find_element(class: 'item__price').text.gsub!('$', '').to_f
+    url        = element.find_element(tag_name: 'a').attribute('href')
 
     new(name:       name,
         price:      price,
@@ -25,5 +25,11 @@ class FoodaItem
 
   def under?(budget)
     price <= budget
+  end
+
+  def matches_blacklist?(blacklist)
+    blacklist.any? do |descriptor|
+      name.downcase.include?(descriptor)
+    end
   end
 end
