@@ -4,6 +4,9 @@ x-main: &main
   tty: true
   stdin_open: true
   build: .
+  environment:
+    DATABASE_URL: postgres://postgres:postgres@postgres:5432
+    REDIS_URL: redis://redis:6379/
   depends_on:
     - postgres
     - redis
@@ -19,9 +22,9 @@ services:
     volumes:
       - 'redis:/data'
 
-  sidekiq:
-    <<: *main
-    command: sidekiq
+  # sidekiq:
+  #   <<: *main
+  #   command: sidekiq
 
   web:
     <<: *main
