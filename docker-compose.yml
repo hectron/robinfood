@@ -7,6 +7,10 @@ x-main: &main
   environment:
     DATABASE_URL: postgres://postgres:postgres@postgres:5432
     REDIS_URL: redis://redis:6379/
+    FOODA_USERNAME:
+    FOODA_PASSWORD:
+  volumes:
+    - '.:/usr/src/app'
   depends_on:
     - postgres
     - redis
