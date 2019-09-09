@@ -8,7 +8,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 
-RUN apt update && apt install -y postgresql-client-11 nodejs yarn
+RUN apt update && apt install -y postgresql-client-11 nodejs yarn chromium chromium-driver
 
 WORKDIR /usr/src/app
 RUN gem update --system && gem install bundler -v 2.0.1
