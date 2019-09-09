@@ -22,9 +22,9 @@ services:
     volumes:
       - 'redis:/data'
 
-  # sidekiq:
-  #   <<: *main
-  #   command: sidekiq
+  sidekiq:
+    <<: *main
+    command: sidekiq
 
   web:
     <<: *main
