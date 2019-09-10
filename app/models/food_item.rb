@@ -1,5 +1,18 @@
 class FoodItem < ApplicationRecord
+  scope :main_dishes, -> { where(category: MAIN_DISHES) }
+  scope :side_dishes, -> { where(category: SIDE_DISHES) }
   scope :below, -> (budget) { where('price <= ?', budget) }
+  scope :offered, -> (date) { where(date_offered: date) }
+
+  ENTREE   = 'Entrees'.freeze
+  SALAD    = 'Salads'.freeze
+  SOUP     = 'Soups'.freeze
+  SIDE     = 'Sides'.freeze
+  BEVERAGE = 'Beverages'.freeze
+  DESSERT  = 'Desserts'.freeze
+
+  MAIN_DISHES = [ENTREE, SALAD, SOUP]
+  SIDE_DISHES = [SIDE, BEVERAGE, DESSERT]
 
   def self.from_element(element, date_offered)
     restaurant = element['data-vendor_name'].gsub(/\W+$/, '')
@@ -18,8 +31,22 @@ class FoodItem < ApplicationRecord
     end
   end
 
+  def main_dish?
+    MAIN_DISHES.include?(category)
+  end
+
+  def side_dish?
+    SIDE_DISHES.include?(category)
+  end
+
   def under?(budget)
     price < budget
+  end
+
+  def matches_blacklist?(blacklist)
+    blacklist.any? do |descriptor|
+      name.downcase.include?(descriptor)
+    end
   end
 
   def last_different_priced_item
@@ -27,5 +54,6 @@ class FoodItem < ApplicationRecord
       .where(name: name, restaurant: restaurant)
       .where('price <> ? AND date_offered < ?', price, date_offered)
       .order(date_offered: :desc)
+      .first
   end
 end
