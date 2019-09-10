@@ -25,12 +25,13 @@ module Recommendations
       private
 
       def try_finding_most_expensive_items
-        sorted_items = items.sort_by(&:price).reverse.dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
+        sorted_items = items.sort_by(&:price).dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
 
         number_of_recommendations.times.map { |_| sorted_items.pop }
       end
 
       def try_finding_recommendations
+        # Dedup
         number_of_recommendations.times.map do |_|
           budget_remaining = budget_post_tax
           selected_items   = items.dup.to_a
