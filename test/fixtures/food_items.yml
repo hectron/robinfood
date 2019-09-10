@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category: MyString
+  restaurant: MyString
+  url: MyString
+  price: 
+  date_offered: 2019-09-10
+
+two:
+  name: MyString
+  category: MyString
+  restaurant: MyString
+  url: MyString
+  price: 
+  date_offered: 2019-09-10

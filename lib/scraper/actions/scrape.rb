@@ -20,7 +20,13 @@ module Scraper
 
       def execute!
         Login.new(browser).execute!
-        ParseMainPage.new(browser).execute!
+        menus = ParseMainPage.new(browser).execute!
+
+        menus.each do |menu|
+          ApplicationRecord.transaction do
+            menu.items.each(&:save!)
+          end
+        end
       end
 
       private

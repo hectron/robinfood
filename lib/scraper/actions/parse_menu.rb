@@ -1,4 +1,3 @@
-require_relative '../food_item'
 require_relative '../menu'
 
 module Scraper
@@ -10,7 +9,7 @@ module Scraper
       end
 
       def execute
-        result = Menu.new
+        result = nil
 
         begin
           result = execute!
@@ -22,18 +21,23 @@ module Scraper
       end
 
       def execute!
-        puts "Navigating to #{url}"
+        date   = try_parse_date
+
+        if FoodItem.where(date_offered: date).exists?
+          Rails.logger.info("Already got data for #{date}. Skipping")
+          return
+        end
+
+        Rails.logger.debug("Navigating to #{url}")
         browser.get(url)
 
-        require 'pry'
         browser.find_element(class: 'myfooda-event__restaurant').click
         browser.wait.until { browser.find_element(class: 'marketing__item').displayed? }
 
-        items  = try_parsing_items
-        date   = try_parse_date
+        items  = try_parsing_items(date)
         budget = try_parse_budget
 
-        puts "Found #{items.size} items for #{date}"
+        Rails.logger.debug("Found #{items.size} items for #{date}")
 
         Menu.new(date, budget, items)
       end
@@ -42,10 +46,10 @@ module Scraper
 
       attr_reader :browser, :url
 
-      def try_parsing_items
+      def try_parsing_items(date)
         items = browser.find_elements(class: 'item')
 
-        items.map { |item| FoodItem.from_element(item) }
+        items.map { |item| FoodItem.from_element(item, date) }
       end
 
       def try_parse_budget

@@ -9,7 +9,7 @@ module Scraper
       end
 
       def execute
-        result = false
+        result = []
 
         begin
           result = execute!
@@ -23,14 +23,10 @@ module Scraper
       def execute!
         links = try_parse_available_dates_with_food
 
-        puts "Found #{links.size} links"
+        Rails.logger.debug("Found #{links.size} links")
         urls = links.map { |l| l['href'] }
 
-        urls.map do |url|
-          menu_parser = ParseMenu.new(browser, url)
-          menu        = menu_parser.execute!
-          menu
-        end
+        urls.map { |url| ParseMenu.new(browser, url).execute! }.compact
       end
 
       private

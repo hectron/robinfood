@@ -1,0 +1,9 @@
+scrape_job:
+  cron: 0 18 * * 0 # Every Sunday, at 6 PM
+  class: 'ScrapeJob'
+  queue: 'default'
+
+announce_job:
+  cron: 30 9 * * 1-5 # Every weekday at 9:30 AM
+  class: 'AnnounceJob'
+  queue: 'default'
