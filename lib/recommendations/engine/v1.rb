@@ -1,3 +1,4 @@
+require 'erb'
 # This engine generates recommendations by:
 #
 #   - picking out random main dishes under the budget
@@ -11,11 +12,15 @@ module Recommendations
         side_dishes   = try_finding_side_dishes
         price_changes = try_finding_price_changes
 
-        {
-          main_dishes:   main_dishes,
-          side_dishes:   side_dishes,
-          price_changes: price_changes,
-        }
+        filepath = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v1.md.erb')
+        template = ERB.new(File.read(filepath))
+
+        template.result(binding)
+        # {
+        #   main_dishes:   main_dishes,
+        #   side_dishes:   side_dishes,
+        #   price_changes: price_changes,
+        # }
       end
 
       private

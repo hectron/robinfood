@@ -41,7 +41,7 @@ module Recommendations
               new_price:  item.price,
             }
           end
-        end.compact
+        end.compact.group_by { |change| change[:restaurant] }
       end
     end
   end
