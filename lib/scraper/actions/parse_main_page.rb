@@ -26,7 +26,7 @@ module Scraper
         Rails.logger.debug("Found #{links.size} links")
         urls = links.map { |l| l['href'] }
 
-        urls.map { |url| ParseMenu.new(browser, url).execute! }.compact
+        urls.map { |url| ParseMenu.new(browser, url).execute }.compact
       end
 
       private
