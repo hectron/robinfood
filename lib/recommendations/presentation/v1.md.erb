@@ -3,13 +3,13 @@
 ## Main dishes recommendations
 
 <% main_dishes.each do |item| %>
-- <%= "[**#{item.name}** from **#{item.restaurant}** _($#{'%.2f' % recommendation.price.to_f.to_s})_](#{item.url})" %>
+- <%= "[**#{item.name}** from **#{item.restaurant}** _($#{'%.2f' % item.price.to_f.to_s})_](#{item.url})" %>
 <% end %>
 
 ## Side dishes recommendations
 
 <% side_dishes.each do |item| %>
-- <%= "[**#{item.name}** from **#{item.restaurant}** _($#{'%.2f' % recommendation.price.to_f.to_s})_](#{item.url})" %>
+- <%= "[**#{item.name}** from **#{item.restaurant}** _($#{'%.2f' % item.price.to_f.to_s})_](#{item.url})" %>
 <% end %>
 
 <% if price_changes&.any? %>
