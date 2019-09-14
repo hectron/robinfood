@@ -1,14 +1,24 @@
-# Fooda Recommendations
+# README
 
-This little script logs into Fooda, and finds things that are within the
-corporate allowance the user might have.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-Based on that limit, it builds several combinations of items that a user can
-purchase. This is pretty helpful for folks that are not in the office, and might
-want to give people the ability to purchase items.
+Things you may want to cover:
 
-## Usage
+* Ruby version
 
-```bash
-ruby app.rb
-```
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

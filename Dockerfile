@@ -1,12 +1,23 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6.3
 
-RUN echo "http://dl-4.alpinelinux.org/alpine/v3.4/main" >> /etc/apk/repositories && \
-      echo "http://dl-4.alpinelinux.org/alpine/v3.4/community" >> /etc/apk/repositories
+# Use the official PostgreSQL repositories for Debian Stretch
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
-RUN apk upgrade --update-cache --available && \
-      apk add curl unzip libexif udev xvfb dbus ttf-dejavu chromium chromium-chromedriver make gcc build-base
+# Add Yarn to the sources list
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 
-WORKDIR /usr/src/app/
-COPY Gemfile /usr/src/app/
+RUN apt update && apt install -y postgresql-client-11 nodejs yarn chromium chromium-driver
+
+WORKDIR /usr/src/app
+RUN gem update --system && gem install bundler -v 2.0.1
+
+ENV PORT 3000
+EXPOSE $PORT
+
+ENTRYPOINT ["bin/entrypoint.sh"]
+
+COPY Gemfile* /usr/src/app/
 RUN bundle install
-COPY . /usr/src/app/
+COPY . /usr/src/app
