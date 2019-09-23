@@ -47,13 +47,13 @@ module Scraper
       attr_reader :browser, :url
 
       def try_parsing_items(date)
-        items = browser.find_elements(class: 'item')
+        items = browser.css('.item')
 
         items.map { |item| FoodItem.from_element(item, date) }
       end
 
       def try_parse_budget
-        div              = browser.find_element(class: 'marketing__item')
+        div              = browser.css('.marketing__item')
         budget_as_string = div.text.split(' ').first
 
         budget_as_string.gsub!('$', '').to_f
