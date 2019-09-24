@@ -30,9 +30,11 @@ module Scraper
 
         Rails.logger.debug("Navigating to #{uri}")
 
-        browser.with_wait { browser.get(uri.to_s) }
-
-        browser.with_wait { browser.at_css('.myfooda-event__restaurant').click }
+        browser
+          .get(uri.to_s)
+          .wait
+          .at_css('.myfooda-event__restaurant')
+          .click
 
         items  = try_parsing_items(date)
         budget = try_parse_budget

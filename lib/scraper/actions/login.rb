@@ -36,12 +36,11 @@ module Scraper
       attr_reader :browser, :username, :password
 
       def try_login
-        browser.with_wait { browser.get(LOGIN_URL) }
+        browser.get(LOGIN_URL).wait
 
-        browser.with_wait do
-          browser.at_css('#user_email').focus.type(username)
-          browser.at_css('#user_password').focus.type(password, :Enter)
-        end
+        browser.at_css('#user_email').focus.type(username)
+        browser.at_css('#user_password').focus.type(password, :Enter)
+        browser.wait
 
         Rails.logger.debug('Logged in!')
 

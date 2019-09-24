@@ -23,23 +23,19 @@ module Scraper
       "#{uri.scheme}://#{uri.host}"
     end
 
-    def with_wait
-      result = yield
-
-      # Wait for the page to load
-      timeout.times do
-        if client.network.status == 200
-          if client.evaluate('document.readyState') == 'complete'
-            break
-          else
-            Rails.logger.debug('Waiting for the DOM document to be ready')
+    def wait
+      self.tap do
+        timeout.times do
+          if client.network.status == 200
+            if client.evaluate('document.readyState') == 'complete'
+              break
+            else
+              Rails.logger.debug('Waiting for the DOM document to be ready')
+              sleep(wait_interval)
+            end
           end
         end
-
-        sleep(wait_interval)
       end
-
-      result
     end
 
     private
