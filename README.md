@@ -1,24 +1,13 @@
-# README
+# Robinfood
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
+You'll need to set the following environment variables:
 
-* Ruby version
+- FOODA_USERNAME
+- FOODA_PASSWORD
 
-* System dependencies
+To open up a rails console, you can:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Copy `docker-compose.override.yml.example` into `docker-compose.override.yml`.
+- `./run rails c`

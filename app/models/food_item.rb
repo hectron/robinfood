@@ -15,11 +15,11 @@ class FoodItem < ApplicationRecord
   SIDE_DISHES = [SIDE, BEVERAGE, DESSERT]
 
   def self.from_element(element, date_offered)
-    restaurant = element['data-vendor_name'].gsub(/\W+$/, '')
-    category   = element['data-category']
-    name       = element.find_element(class: 'item__name').text.squish
-    price      = element.find_element(class: 'item__price').text.gsub!('$', '').to_f
-    url        = element.find_element(tag_name: 'a').attribute('href')
+    restaurant = element.attribute('data-vendor_name').gsub(/\W+$/, '')
+    category   = element.attribute('data-category')
+    name       = element.at_css('.item__name').text.squish
+    price      = element.at_css('.item__price').text.gsub!('$', '').to_f
+    url        = element.at_css('a').attribute('href')
 
     new.tap do |instance|
       instance.name         = name

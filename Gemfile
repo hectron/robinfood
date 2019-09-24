@@ -34,7 +34,7 @@ gem 'sidekiq-cron', '~> 1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Used to find available food
-gem 'selenium-webdriver'
+gem 'ferrum', '~> 0.4'
 
 # Used to post to Slack
 gem 'slack-ruby-client'

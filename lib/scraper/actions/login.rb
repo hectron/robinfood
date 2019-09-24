@@ -2,6 +2,8 @@
 module Scraper
   module Actions
     class Login
+      LOGIN_URL = 'https://app.fooda.com/login'.freeze
+
       # @param [Scraper::Browser] browser
       # @param [String] username
       # @param [String] password
@@ -24,8 +26,6 @@ module Scraper
       end
 
       def execute!
-        browser.get('https://app.fooda.com/login')
-
         try_login
 
         true
@@ -36,13 +36,16 @@ module Scraper
       attr_reader :browser, :username, :password
 
       def try_login
-        browser.find_element(id: 'user_email').send_keys(username)
-        browser.find_element(id: 'user_password').send_keys(password)
-        browser.find_element(name: 'commit', type: 'submit').click
+        browser.get(LOGIN_URL).wait
 
-        browser.wait.until { browser.find_element(class: 'myfooda-event__product').displayed? }
+        browser.at_css('#user_email').focus.type(username)
+        browser.at_css('#user_password').focus.type(password, :Enter)
+        browser.wait
+
+        Rails.logger.debug('Logged in!')
+
+        browser.current_url != LOGIN_URL
       end
-
     end
   end
 end
