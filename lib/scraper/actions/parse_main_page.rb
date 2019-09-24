@@ -24,9 +24,10 @@ module Scraper
         links = try_parse_available_dates_with_food
 
         Rails.logger.debug("Found #{links.size} links")
-        urls = links.map { |l| l.attribute('href') }
 
-        urls.map { |url| ParseMenu.new(browser, url).execute }.compact
+        uris = links.map { |l| URI.join(browser.base_uri, l.attribute('href')) }
+
+        uris.map { |uri| ParseMenu.new(browser, uri).execute }.compact
       end
 
       private

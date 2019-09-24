@@ -19,8 +19,8 @@ module Scraper
       end
 
       def execute!
-        Login.new(browser).execute!
-        menus = ParseMainPage.new(browser).execute!
+        Login.new(browser).execute
+        menus = ParseMainPage.new(browser).execute
 
         menus.each do |menu|
           ApplicationRecord.transaction do
