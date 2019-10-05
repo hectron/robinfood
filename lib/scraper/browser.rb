@@ -28,7 +28,7 @@ module Scraper
         timeout.times do
           ready_state = client.evaluate('document.readyState')
 
-          puts "Current page: #{client.current_url}. Status: #{client.network.status}. Ready State: #{ready_state}"
+          Rails.logger.debug("Current page: #{client.current_url}\nStatus: #{client.network.status}\nReady State: #{ready_state}")
 
           if client.network.status == 200 && ready_state == 'complete'
             break
