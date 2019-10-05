@@ -15,12 +15,11 @@ module Recommendations
         filepath = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v1.md.erb')
         template = ERB.new(File.read(filepath))
 
-        template.result(binding)
-        # {
-        #   main_dishes:   main_dishes,
-        #   side_dishes:   side_dishes,
-        #   price_changes: price_changes,
-        # }
+        Decision.new(date, budget, template.result(binding), {
+          main_dishes:   main_dishes,
+          side_dishes:   side_dishes,
+          price_changes: price_changes,
+        })
       end
 
       private
