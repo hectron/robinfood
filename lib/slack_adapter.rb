@@ -8,7 +8,7 @@ class SlackAdapter
       client.files_upload(
         channels: channel,
         as_user:  true,
-        filename: "#{decision.date}_recommendation.md",
+        filename: "#{decision.date.to_formatted_s(:number)}_recommendation.md",
         filetype: 'post',
         content:  decision.content
       )

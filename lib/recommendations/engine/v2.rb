@@ -57,7 +57,7 @@ module Recommendations
               end
             end
           end
-        end
+        end.uniq
       end
     end
   end
