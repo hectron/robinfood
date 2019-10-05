@@ -28,13 +28,7 @@ module Scraper
           return
         end
 
-        Rails.logger.debug("Navigating to #{uri}")
-
-        browser
-          .get(uri.to_s)
-          .wait
-          .at_css('.myfooda-event__restaurant')
-          .click
+        try_loading_uri
 
         items  = try_parsing_items(date)
         budget = try_parse_budget
@@ -47,6 +41,16 @@ module Scraper
       private
 
       attr_reader :browser, :uri
+
+      def try_loading_uri
+        Rails.logger.debug("Navigating to #{uri}")
+
+        browser.get(uri.to_s)
+        browser.wait
+
+        browser.at_css('.myfooda-event__restaurant').click
+        browser.wait
+      end
 
       def try_parsing_items(date)
         items = browser.css('.item')

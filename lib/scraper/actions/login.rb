@@ -36,7 +36,8 @@ module Scraper
       attr_reader :browser, :username, :password
 
       def try_login
-        browser.get(LOGIN_URL).wait
+        browser.get(LOGIN_URL)
+        browser.wait
 
         browser.at_css('#user_email').focus.type(username)
         browser.at_css('#user_password').focus.type(password, :Enter)
