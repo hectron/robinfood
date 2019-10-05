@@ -1,0 +1,14 @@
+# Used to deploy the Docker image to Heroku
+setup:
+  addons:
+    - plan: heroku-postgresql
+    - plan: heroku-redis
+build:
+  config:
+    RAILS_ENV: production
+  docker:
+    web:    Dockerfile
+    worker: Dockerfile
+run:
+  web:    prod_web
+  worker: sidekiq
