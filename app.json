@@ -1,0 +1,13 @@
+{
+  "name": "Robinfood",
+  "description": "Take from the rich, give to the less rich",
+  "repository": "https://github.com/hectron/robinfood",
+  "addons": [
+    { "plan": "heroku-postgresql", "options": { "version": "11" },
+    { "plan": "heroku-redis" }
+  ],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" },
+    { "url": "heroku/ruby" }
+  ]
+}
