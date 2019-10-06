@@ -10,5 +10,5 @@ build:
     web:    Dockerfile
     worker: Dockerfile
 run:
-  web:    prod_web
-  worker: sidekiq
+  web:    ./bin/entrypoint.sh prod_web
+  worker: ./bin/entrypoint.sh sidekiq
