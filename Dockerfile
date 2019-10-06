@@ -25,7 +25,7 @@ RUN gem update --system && gem install bundler -v 2.0.1
 ENV PORT 3000
 EXPOSE $PORT
 
-ENTRYPOINT ["bin/entrypoint.sh"]
+CMD ["bin/entrypoint.sh"]
 
 COPY Gemfile* /usr/src/app/
 RUN bundle install
