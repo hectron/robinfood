@@ -1,6 +1,3 @@
-require 'slack_adapter'
-require 'recommendations'
-
 class AnnounceJob < ActiveJob::Base
   queue_as :default
 

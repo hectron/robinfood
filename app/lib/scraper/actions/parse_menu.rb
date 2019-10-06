@@ -1,5 +1,3 @@
-require_relative '../menu'
-
 module Scraper
   module Actions
     class ParseMenu

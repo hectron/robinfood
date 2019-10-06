@@ -1,5 +1,3 @@
-require 'scaper/actions/scrape'
-
 class ScrapeJob < ActiveJob::Base
   queue_as :default
 
