@@ -10,5 +10,5 @@ build:
     web:    Dockerfile
     worker: Dockerfile
 run:
-  web:    ./bin/entrypoint.sh prod_web
-  worker: ./bin/entrypoint.sh sidekiq
+  web:    bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb
+  worker: bundle exec sidekiq
