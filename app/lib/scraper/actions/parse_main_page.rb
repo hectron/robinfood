@@ -1,5 +1,3 @@
-require_relative './parse_menu'
-
 module Scraper
   module Actions
     class ParseMainPage

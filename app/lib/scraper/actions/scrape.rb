@@ -1,8 +1,3 @@
-require_relative '../browser'
-require_relative './login'
-require_relative './parse_main_page'
-
-
 module Scraper
   module Actions
     class Scrape
