@@ -1,0 +1,20 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+    - plan: heroku-redis
+
+build:
+  config:
+    RAILS_ENV: production
+  docker:
+    web:    Dockerfile
+    worker: Dockerfile
+
+release:
+  image:    web
+  command:
+    - bundle exec rake assets:precompile
+
+run:
+  web:    bundle exec puma -C config/puma.rb
+  worker: bundle exec sidekiq
