@@ -16,5 +16,5 @@ release:
     - bundle exec rake assets:precompile
 
 run:
-  web:    bundle exec puma -C config/puma.rb
+  web:    bundle exec rails s -b 0.0.0.0 -P /dev/null
   worker: bundle exec sidekiq
