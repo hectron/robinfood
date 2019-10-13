@@ -16,5 +16,5 @@ release:
     - bundle exec rake assets:precompile
 
 run:
-  web:    bundle exec rails s -p $PORT
+  web:    bundle exec rails s -b 0.0.0.0 -p $PORT
   worker: bundle exec sidekiq
