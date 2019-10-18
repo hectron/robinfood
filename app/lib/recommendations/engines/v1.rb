@@ -5,7 +5,7 @@ require 'erb'
 #   - picking out random side dishes under the budget
 #   - notifies about any price changes
 module Recommendations
-  module Engine
+  module Engines
     class V1 < Base
       def generate
         main_dishes   = try_finding_main_dishes
