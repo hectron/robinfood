@@ -1,10 +1,11 @@
 require 'erb'
+
 # This engine generates recommendations by:
 #
 #   - preferring main dishes, and then side items to fill in the budget.
 #   - notifies about any price changes
 module Recommendations
-  module Engine
+  module Engines
     class V2 < Base
       def generate
         most_expensive_items = try_finding_most_expensive_items
