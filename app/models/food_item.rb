@@ -1,6 +1,10 @@
 class FoodItem < ApplicationRecord
   scope :main_dishes, -> { where(category: MAIN_DISHES) }
   scope :side_dishes, -> { where(category: SIDE_DISHES) }
+  scope :with_dietary_restriction, -> (restriction) { where("array_to_string(dietary_restrictions, ', ') ILIKE :restriction", restriction: "%#{restriction}%") }
+  scope :vegetarian, -> { with_dietary_restriction(VEGETARIAN) }
+  scope :vegan, -> { with_dietary_restriction(VEGAN) }
+  scope :gluten_free, -> { with_dietary_restriction(GLUTEN_FREE) }
   scope :below, -> (budget) { where('price <= ?', budget) }
   scope :offered, -> (date) { where(date_offered: date) }
 
@@ -10,6 +14,10 @@ class FoodItem < ApplicationRecord
   SIDE     = 'Sides'.freeze
   BEVERAGE = 'Beverages'.freeze
   DESSERT  = 'Desserts'.freeze
+
+  VEGETARIAN  = 'Vegetarian'.freeze
+  VEGAN       = 'Vegan'.freeze
+  GLUTEN_FREE = 'Gluten-Free'.freeze
 
   MAIN_DISHES = [ENTREE, SALAD, SOUP]
   SIDE_DISHES = [SIDE, BEVERAGE, DESSERT]
