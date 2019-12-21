@@ -47,7 +47,7 @@ module Recommendations
                 item = main_items.any? ? main_items.sample : side_items.sample
 
                 if item
-                  selected_items.delete_at(available_items.index(item))
+                  selected_items.delete_at(selected_items.index(item))
                   recommendations.push(item)
                   budget_remaining -= item.price
                 else
