@@ -13,7 +13,7 @@ module Recommendations
         price_changes        = try_finding_price_changes
 
         filepath = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v2.md.erb')
-        template = ERB.new(File.read(filepath))
+        template = ERB.new(File.read(filepath), nil, '-')
 
         Decision.new(date, budget, template.result(binding), {
           recommendations:      recommendations,
