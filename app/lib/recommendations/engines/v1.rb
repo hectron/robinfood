@@ -7,22 +7,23 @@ require 'erb'
 module Recommendations
   module Engines
     class V1 < Base
-      def generate
+      private
+
+      def template_data
         main_dishes   = try_finding_main_dishes
         side_dishes   = try_finding_side_dishes
         price_changes = try_finding_price_changes
 
-        filepath = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v1.md.erb')
-        template = ERB.new(File.read(filepath))
-
-        Decision.new(date, budget, template.result(binding), {
+        {
           main_dishes:   main_dishes,
           side_dishes:   side_dishes,
           price_changes: price_changes,
-        })
+        }
       end
 
-      private
+      def template_path
+        File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v1.md.erb')
+      end
 
       def try_finding_main_dishes
         main_dishes = items.select(&:main_dish?).dup

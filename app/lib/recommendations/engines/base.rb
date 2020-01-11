@@ -14,7 +14,7 @@ module Recommendations
       end
 
       def generate
-        raise NotImplementedError
+        Recommendations::Decision.new(date, budget, template_path, template_data)
       end
 
       private

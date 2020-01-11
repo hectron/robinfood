@@ -7,22 +7,23 @@ require 'erb'
 module Recommendations
   module Engines
     class V2 < Base
-      def generate
+      private
+
+      def template_data
         most_expensive_items = try_finding_most_expensive_items
         recommendations      = try_finding_recommendations
         price_changes        = try_finding_price_changes
 
-        filepath = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v2.md.erb')
-        template = ERB.new(File.read(filepath), nil, '-')
-
-        Decision.new(date, budget, template.result(binding), {
+        {
           recommendations:      recommendations,
           most_expensive_items: most_expensive_items,
           price_changes:        price_changes,
-        })
+        }
       end
 
-      private
+      def template_path
+        File.join(File.expand_path(File.dirname(__FILE__)), '..', 'presentation', 'v2.md.erb').freeze
+      end
 
       def try_finding_most_expensive_items
         sorted_items = items.sort_by(&:price).dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
