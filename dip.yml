@@ -1,5 +1,10 @@
 version: '2'
 
+compose:
+  files:
+    - docker-compose.yml
+    - docker-compose.override.yml
+
 interaction:
   bash:
     service: web

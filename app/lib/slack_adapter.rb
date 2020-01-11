@@ -10,7 +10,7 @@ class SlackAdapter
         as_user:  true,
         filename: "#{decision.date.to_formatted_s(:number)}_recommendation.md",
         filetype: 'post',
-        content:  decision.content
+        content:  decision.rendered_template
       )
     end
 
