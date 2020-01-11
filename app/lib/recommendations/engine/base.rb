@@ -1,5 +1,5 @@
 module Recommendations
-  module Engines
+  module Engine
     class Base
       DEFAULT_LOCAL_TAX                 = 0.10_5 # This is about right for Crook County
       DEFAULT_NUMBER_OF_RECOMMENDATIONS = 5

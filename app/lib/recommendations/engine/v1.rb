@@ -5,7 +5,7 @@ require 'erb'
 #   - picking out random side dishes under the budget
 #   - notifies about any price changes
 module Recommendations
-  module Engines
+  module Engine
     class V1 < Base
       private
 

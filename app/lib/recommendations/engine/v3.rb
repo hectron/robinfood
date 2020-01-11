@@ -5,7 +5,7 @@ require 'erb'
 #   - preferring main dishes, and then side items to fill in the budget.
 #   - notifies about any price changes
 module Recommendations
-  module Engines
+  module Engine
     class V3 < Base
       private
 
