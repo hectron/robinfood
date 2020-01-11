@@ -20,7 +20,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 WORKDIR /usr/src/app
-RUN gem update --system && gem install bundler -v 2.0.1
+RUN gem update --system && gem install bundler -v 2.1.4
 
 ENV PORT 3000
 EXPOSE $PORT
