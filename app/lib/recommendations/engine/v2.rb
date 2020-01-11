@@ -2,10 +2,10 @@ require 'erb'
 
 # This engine generates recommendations by:
 #
-#   - preferring main dishes, and then side items to fill in the budget.
+#   - preferring main dishes, ad then side items to fill in the budget.
 #   - notifies about any price changes
 module Recommendations
-  module Engines
+  module Engine
     class V2 < Base
       private
 
