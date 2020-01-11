@@ -3,7 +3,8 @@
 ## Most expensive items
 
 <% most_expensive_items.each do |item| -%>
-  *[<%= item.name %> from <%= item.restaurant %>](<%= item.url %>)* _($<%= '%.2f' % item.price.to_s %>)_
+  <% @inline_item = Recommendations::Presentation::InlineFoodItem.new(item) -%>
+  *<%= @inline_item.link %>* <%= @inline_item.dietary_restrictions.present? ? "_#{@inline_item.dietary_restrictions}_": nil -%> _(<%= @inline_item.price %>)_
 <% end -%>
 
 _These are items that will maximize your stipend, sorted by most expensive descending._
@@ -12,7 +13,8 @@ _These are items that will maximize your stipend, sorted by most expensive desce
 *Idea <%= index + 1 %>*
 
 <% recommendation_set.each do |recommendation| -%>
-  *[<%= recommendation.name %> from <%= recommendation.restaurant %>](<%= recommendation.url %>)* _($<%= '%.2f' % recommendation.price.to_s %>)_
+  <% @inline_item = Recommendations::Presentation::InlineFoodItem.new(recommendation) -%>
+  *<%= @inline_item.link %>* <%= @inline_item.dietary_restrictions.present? ? "_#{@inline_item.dietary_restrictions}_": nil -%> _(<%= @inline_item.price %>)_
 <% end -%>
 
   _Estimated cost before tax: $<%= '%.2f' % recommendation_set.map(&:price).reduce(:+).to_s %>_
