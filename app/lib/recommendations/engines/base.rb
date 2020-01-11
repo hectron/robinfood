@@ -1,5 +1,5 @@
 module Recommendations
-  module Engine
+  module Engines
     class Base
       DEFAULT_LOCAL_TAX                 = 0.10_5 # This is about right for Crook County
       DEFAULT_NUMBER_OF_RECOMMENDATIONS = 5
@@ -20,6 +20,14 @@ module Recommendations
       private
 
       attr_reader :date, :budget, :number_of_recommendations, :keyword_blacklist, :local_tax
+
+      def template_data
+        raise NotImplementedError
+      end
+
+      def template_path
+        raise NotImplementedError
+      end
 
       def items
         @items ||= FoodItem
