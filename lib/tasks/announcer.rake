@@ -4,8 +4,8 @@ namespace :announcer do
     today = Date.today
 
     if today.on_weekday?
-      channel             = '#app-robinfood'
-      budget              = 6
+      channel             = ENV['SLACK_CHANNEL_TO_POST_TO']
+      budget              = ENV['FOOD_BUDGET']
       decision            = Recommendations::Engine::V2.new(Date.today, budget).generate
       vegetarian_decision = Recommendations::Engine::V3.new(Date.today, budget).generate
 
