@@ -13,10 +13,12 @@ module Recommendations
         most_expensive_items = try_finding_most_expensive_items
         recommendations      = try_finding_recommendations
 
-        {
-          recommendations:      recommendations,
-          most_expensive_items: most_expensive_items,
-        }
+        if most_expensive_items.present? && recommendations.flatten.present?
+          {
+            recommendations:      recommendations,
+            most_expensive_items: most_expensive_items,
+          }
+        end
       end
 
       def template_path
@@ -26,7 +28,7 @@ module Recommendations
       def try_finding_most_expensive_items
         sorted_items = items.sort_by(&:price).dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
 
-        number_of_recommendations.times.map { |_| sorted_items.pop }
+        number_of_recommendations.times.map { |_| sorted_items.pop }.compact
       end
 
       def try_finding_recommendations

@@ -14,7 +14,9 @@ module Recommendations
       end
 
       def generate
-        Recommendations::Decision.new(date, budget, template_path, template_data)
+        if template_data.present?
+          Recommendations::Decision.new(date, budget, template_path, template_data)
+        end
       end
 
       private
