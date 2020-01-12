@@ -9,6 +9,8 @@ x-main: &main
     REDIS_URL: redis://redis:6379/
     FOODA_USERNAME:
     FOODA_PASSWORD:
+    SLACK_CHANNEL_TO_POST_TO:
+    FOOD_BUDGET: 6
   volumes:
     - '.:/usr/src/app'
   depends_on:
