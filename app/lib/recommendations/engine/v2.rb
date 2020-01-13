@@ -14,12 +14,10 @@ module Recommendations
         recommendations      = try_finding_recommendations
         price_changes        = try_finding_price_changes
 
-        if most_expensive_items.present? && recommendations.flatten.present? && price_changes.present?
-          {
-            recommendations:      recommendations,
-            most_expensive_items: most_expensive_items,
-            price_changes:        price_changes,
-          }
+        {}.tap do |data|
+          data[:most_expensive_items] = most_expensive_items if most_expensive_items.present?
+          data[:recommendations]      = recommendations if recommendations.flatten.present?
+          data[:price_changes]        = price_changes if price_changes.present?
         end
       end
 

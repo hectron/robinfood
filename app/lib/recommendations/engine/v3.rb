@@ -13,11 +13,9 @@ module Recommendations
         most_expensive_items = try_finding_most_expensive_items
         recommendations      = try_finding_recommendations
 
-        if most_expensive_items.present? && recommendations.flatten.present?
-          {
-            recommendations:      recommendations,
-            most_expensive_items: most_expensive_items,
-          }
+        {}.tap do |data|
+          data[:recommendations]      = recommendations if recommendations.flatten.present?
+          data[:most_expensive_items] = most_expensive_items if most_expensive_items.present?
         end
       end
 
