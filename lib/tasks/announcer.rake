@@ -5,7 +5,7 @@ namespace :announcer do
 
     if today.on_weekday?
       channel             = ENV['SLACK_CHANNEL_TO_POST_TO']
-      budget              = ENV['FOOD_BUDGET']
+      budget              = ENV.fetch('FOOD_BUDGET', '6').to_f
       decision            = Recommendations::Engine::V2.new(Date.today, budget).generate
       vegetarian_decision = Recommendations::Engine::V3.new(Date.today, budget).generate
 
