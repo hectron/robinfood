@@ -14,8 +14,8 @@ module Recommendations
         recommendations      = try_finding_recommendations
 
         {}.tap do |data|
-          data[:recommendations]      = recommendations if recommendations.flatten.present?
-          data[:most_expensive_items] = most_expensive_items if most_expensive_items.present?
+          data[:recommendations]      = recommendations.flatten.present? ? recommendations : nil
+          data[:most_expensive_items] = most_expensive_items.present? ? most_expensive_items : nil
         end
       end
 

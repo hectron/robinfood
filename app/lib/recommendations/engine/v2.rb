@@ -15,9 +15,9 @@ module Recommendations
         price_changes        = try_finding_price_changes
 
         {}.tap do |data|
-          data[:most_expensive_items] = most_expensive_items if most_expensive_items.present?
-          data[:recommendations]      = recommendations if recommendations.flatten.present?
-          data[:price_changes]        = price_changes if price_changes.present?
+          data[:most_expensive_items] = most_expensive_items.present? ? most_expensive_items : nil
+          data[:recommendations]      = recommendations.flatten.present? ? recommendations : nil
+          data[:price_changes]        = price_changes.present? ? price_changes : nil
         end
       end
 
