@@ -1,27 +1,29 @@
+# frozen_string_literal: true
+
 namespace :announcer do
-  desc 'Announces decisions to Slack'
-  task :run => :environment do
-    today = Date.today
+  desc "Announces decisions to Slack"
+  task run: :environment do
+    today = Time.zone.today
 
     if today.on_weekday?
-      channel             = ENV['SLACK_CHANNEL_TO_POST_TO']
-      budget              = ENV.fetch('FOOD_BUDGET', '6').to_f
-      decision            = Recommendations::Engine::V2.new(Date.today, budget).generate
-      vegetarian_decision = Recommendations::Engine::V3.new(Date.today, budget).generate
+      channel             = ENV["SLACK_CHANNEL_TO_POST_TO"]
+      budget              = ENV.fetch("FOOD_BUDGET", "6").to_f
+      decision            = Recommendations::Engine::V2.new(today, budget).generate
+      vegetarian_decision = Recommendations::Engine::V3.new(today, budget).generate
 
       if decision.present?
         SlackAdapter.announce(decision, channel: channel)
       else
-        Rails.logger.error 'No data found for v2 decision'
+        Rails.logger.error "No data found for v2 decision"
       end
 
       if vegetarian_decision.present?
         SlackAdapter.announce(vegetarian_decision, channel: channel)
       else
-        Rails.logger.error 'No data found for vegetarian decision'
+        Rails.logger.error "No data found for vegetarian decision"
       end
     else
-      Rails.logger.info 'Not doing anything on a weekend'
+      Rails.logger.info "Not doing anything on a weekend"
     end
   end
 end

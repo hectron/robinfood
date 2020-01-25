@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :scraper do
-  desc 'Scrapes Fooda Items'
-  task :run => :environment do
+  desc "Scrapes Fooda Items"
+  task run: :environment do
     row_limit          = 10_000
     current_item_count = FoodItem.count
 
