@@ -1,0 +1,136 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+#inherit_from: .rubocop_todo.yml
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'scripts/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+Layout/CaseIndentation:
+  EnforcedStyle: end
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: no_empty_lines
+  Exclude:
+    - "spec/**/*"
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+  AutoCorrect: true
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: symmetrical
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: symmetrical
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/ExtraSpacing:
+  # When true, allows most uses of extra spacing if the intent is to align
+  # things with the previous or next line, not counting empty lines or comment
+  # lines.
+  AllowForAlignment: true
+# We should discuss whether we want to enforce documentation
+Style/Documentation:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: 'double_quotes' # :Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+  Exclude:
+    - "spec/**/*_spec.rb"
+    - "spec/shared_contexts/**/*.rb"
+    - "spec/requests/**/*.rb"
+    - "spec/factories/**/*.rb"
+    - "app/controllers/application_controller.rb"
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/DoubleNegation:
+  Enabled: false
+Style/MultilineBlockChain:
+  Enabled: false
+Metrics/ParameterLists:
+  Max: 7
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - "lib/**/*"
+    - "spec/**/*"
+  IgnoredPatterns: ['\A#']
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - "db/migrate/*.rb"
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+Metrics/BlockLength:
+  Max: 34
+  ExcludedMethods:
+    - RSpec.shared_examples
+    - Sequel.migration
+    - Dry::Validation.Schema
+    - Dry::Validation.Form
+  Exclude:
+    - "lib/tasks/**/*"
+    - "spec/**/*_shared_examples.rb"
+    - "spec/**/*_spec.rb"
+    - "spec/factories/**/*.rb"
+    - "**/*_spec.rb"
+Metrics/ClassLength:
+  Max: 300
+Style/DateTime:
+  Enabled: false
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+Style/IfUnlessModifier:
+  Enabled: false
+Naming/ConstantName:
+  Enabled: false
+Lint/MissingCopEnableDirective:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Rails/Present:
+  Enabled: true
+Rails/Blank:
+  Enabled: true
+Rails/ApplicationRecord:
+  Enabled: true
+Rails/Validation:
+  Enabled: true
+Rails/FindBy:
+  Enabled: true
+Rails/Delegate:
+  Enabled: true
+Rails/FilePath:
+  Enabled: true
+Rails/HttpPositionalArguments:
+  Enabled: true
+Rails/Output:
+  Enabled: true
+Rails/PluralizationGrammar:
+  Enabled: true
+Rails/Presence:
+  Enabled: true
+Rails/HttpStatus:
+  Enabled: true
+Rails/Exit:
+  Enabled: true
+Rails/ReflectionClassName:
+  Enabled: true
+Rails/InverseOf:
+  Enabled: true
+Style/Copyright:
+  Enabled: false
