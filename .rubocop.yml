@@ -10,10 +10,7 @@ AllCops:
     - 'scripts/**/*'
     - 'bin/**/*'
     - 'vendor/**/*'
-Layout/AlignArguments:
-  EnforcedStyle: with_fixed_indentation
-  IndentationWidth: 2
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 2
 Layout/CaseIndentation:
@@ -25,8 +22,11 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
   AutoCorrect: true
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+  IndentationWidth: 2
 Layout/MultilineMethodCallBraceLayout:
   EnforcedStyle: symmetrical
 Layout/MultilineHashBraceLayout:
@@ -40,11 +40,11 @@ Layout/ExtraSpacing:
   # things with the previous or next line, not counting empty lines or comment
   # lines.
   AllowForAlignment: true
-# We should discuss whether we want to enforce documentation
 Style/Documentation:
   Enabled: false
 Style/StringLiterals:
   EnforcedStyle: 'double_quotes' # :Style/BlockDelimiters:
+Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
   Exclude:
     - "spec/**/*_spec.rb"
@@ -62,7 +62,7 @@ Style/MultilineBlockChain:
   Enabled: false
 Metrics/ParameterLists:
   Max: 7
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - "lib/**/*"
