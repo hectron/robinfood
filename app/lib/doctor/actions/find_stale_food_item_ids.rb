@@ -1,8 +1,8 @@
 # Finds items that can be deleted from the database
-#
+
 module Doctor
   module Actions
-    class FindStaleItems
+    class FindStaleFoodItemIds
       include Verbalize::Action
 
       def call
