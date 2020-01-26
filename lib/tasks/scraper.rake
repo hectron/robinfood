@@ -7,7 +7,7 @@ namespace :scraper do
     Rails.logger.info "There are currently #{current_item_count} items in the database"
 
     if current_item_count < row_limit
-      Scraper::Actions::Scrape.execute
+      Scraper::Actions::Scrape.new.execute
     else
       Rails.logger.error "We ran out of rows in the database for Heroku Postgres Free Tier."
     end
