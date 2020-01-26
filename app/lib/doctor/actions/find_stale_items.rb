@@ -8,6 +8,8 @@ module Doctor
       def call
         results = ActiveRecord::Base.connection.execute(query)
 
+        return [] unless results.cmd_tuples.positive?
+
         ids_to_delete = results.flat_map do |result|
           ids      = result['food_item_ids']
           item_ids = (ids.gsub(/({|})/, '')&.split(',') || []).map(&:to_i).sort
