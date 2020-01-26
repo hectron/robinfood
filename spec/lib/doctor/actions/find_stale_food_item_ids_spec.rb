@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Doctor::Actions::FindStaleItems do
+describe Doctor::Actions::FindStaleFoodItemIds do
   describe '.call!' do
     subject { described_class.call! }
 
