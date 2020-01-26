@@ -14,11 +14,14 @@ module Recommendations
         recommendations      = try_finding_recommendations
         price_changes        = try_finding_price_changes
 
-        {}.tap do |data|
-          data[:most_expensive_items] = most_expensive_items.present? ? most_expensive_items : nil
-          data[:recommendations]      = recommendations.flatten.present? ? recommendations : nil
-          data[:price_changes]        = price_changes.present? ? price_changes : nil
-        end
+        return nil unless most_expensive_items.present?
+        return nil unless recommendations.flatten.present?
+
+        {
+          most_expensive_items: most_expensive_items,
+          recommendations:      recommendations,
+          price_changes:        price_changes,
+        }
       end
 
       def template_path
