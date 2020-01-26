@@ -13,7 +13,8 @@ module Doctor
           item_ids = (ids.gsub(/({|})/, '')&.split(',') || []).map(&:to_i).sort
 
           if item_ids.size > 1
-            item_ids.sort[0...-1]
+            # exclude the latest item
+            item_ids[0...-1]
           end
         end
 
@@ -22,7 +23,7 @@ module Doctor
 
       private
 
-      # This is a query that aggregates every item that we have by restaurant, name and price
+      # This is a query that aggregates every item that we have by restaurant, name, price
       # That way any price changes are returned in a separate row
       def query
         <<~SQL
@@ -34,7 +35,7 @@ module Doctor
           FROM
             food_items
           WHERE
-          -- Ensures that we only get items we haven't yet posted
+          -- Ensures that we only get items we have posted
             date_offered < now()::date
           GROUP BY
             restaurant, item_name, price
