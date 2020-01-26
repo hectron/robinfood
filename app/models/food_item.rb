@@ -3,6 +3,7 @@ class FoodItem < ApplicationRecord
   scope :side_dishes, -> { where(category: SIDE_DISHES) }
   scope :below, -> (budget) { where('price <= ?', budget) }
   scope :offered, -> (date) { where(date_offered: date) }
+  scope :vegetarian, -> { where("dietary_restrictions @> ARRAY[?]::varchar[]", ['Vegetarian']) }
 
   ENTREE   = 'Entrees'.freeze
   SALAD    = 'Salads'.freeze
@@ -51,11 +52,22 @@ class FoodItem < ApplicationRecord
     end
   end
 
-  def last_different_priced_item
-    FoodItem
-      .where(name: name, restaurant: restaurant)
-      .where('price <> ? AND date_offered < ?', price, date_offered)
-      .order(date_offered: :desc)
-      .first
+  # Finds the last price delta
+  #
+  # @return [Structs::FoodItems::PriceDelta, nil]
+  def last_price_delta
+    item = FoodItem
+             .where(name: name, restaurant: restaurant)
+             .where('price <> ? AND date_offered < ?', price, date_offered)
+             .order(date_offered: :desc)
+             .first
+
+    if item
+      Structs::FoodItems::PriceDelta.new(item_name:  item.name,
+                                         restaurant: item.restaurant,
+                                         old_price:  item.price.to_f,
+                                         new_price:  price.to_f,
+                                         date:       date_offered)
+    end
   end
 end

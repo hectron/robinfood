@@ -26,13 +26,13 @@ module Recommendations
       end
 
       def try_finding_main_dishes
-        main_dishes = items.select(&:main_dish?).dup
+        main_dishes = items_available.select(&:main_dish?).dup
 
         build_recommendations_from(main_dishes)
       end
 
       def try_finding_side_dishes
-        side_dishes = items.select(&:side_dish?).dup
+        side_dishes = items_available.select(&:side_dish?).dup
 
         build_recommendations_from(side_dishes)
       end
@@ -53,6 +53,12 @@ module Recommendations
             end
           end
         end
+      end
+
+      def items_available
+        @items_available ||= FoodItem
+                               .below(budget_post_tax)
+                               .offered(date)
       end
     end
   end

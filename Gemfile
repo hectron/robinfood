@@ -39,6 +39,15 @@ gem 'ferrum', '~> 0.4'
 # Used to post to Slack
 gem 'slack-ruby-client'
 
+# Used to build actions
+gem 'verbalize'
+
+# Dry code
+gem 'dry-core'
+gem 'dry-types'
+gem 'dry-struct'
+gem 'dry-schema'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

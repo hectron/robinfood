@@ -61,6 +61,10 @@ module Recommendations
           end
         end.uniq
       end
+
+      def items_available
+        @items_available ||= FoodItem.below(budget_post_tax).offered(date)
+      end
     end
   end
 end

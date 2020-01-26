@@ -5,12 +5,12 @@ module Recommendations
       DEFAULT_NUMBER_OF_RECOMMENDATIONS = 5
       DEFAULT_KEYWORD_BLACKLIST         = %w(tortilla sauce extra).freeze
 
-      def initialize(date, budget, opts = {})
-        @date                      = date
-        @budget                    = budget
-        @number_of_recommendations = opts.fetch(:number_of_recommendations, DEFAULT_NUMBER_OF_RECOMMENDATIONS)
-        @keyword_blacklist         = opts.fetch(:keyword_blacklist, DEFAULT_KEYWORD_BLACKLIST)
-        @local_tax                 = opts.fetch(:local_tax, DEFAULT_LOCAL_TAX)
+      def initialize(date, budget, recommendation_count: nil, local_tax: nil, keyword_blacklist: nil)
+        @date                 = date
+        @budget               = budget
+        @recommendation_count = recommendation_count || DEFAULT_NUMBER_OF_RECOMMENDATIONS
+        @local_tax            = local_tax || DEFAULT_LOCAL_TAX
+        @keyword_blacklist    = keyword_blacklist || DEFAULT_KEYWORD_BLACKLIST
       end
 
       def generate
@@ -31,10 +31,9 @@ module Recommendations
         raise NotImplementedError
       end
 
-      def items
-        @items ||= FoodItem
-                     .below(budget_post_tax)
-                     .offered(date)
+      # @return [Array<FoodItem>]
+      def items_available
+        raise NotImplementedError
       end
 
       def budget_post_tax
@@ -42,16 +41,10 @@ module Recommendations
       end
 
       def try_finding_price_changes
-        @price_changes ||= items.map do |item|
-          if old_item = item.last_different_priced_item
-            {
-              restaurant: item.restaurant,
-              name:       item.name,
-              old_price:  old_item.price,
-              new_price:  item.price,
-            }
-          end
-        end.compact.group_by { |change| change[:restaurant] }
+        @price_changes ||= items_available
+                             .map(&:last_price_delta)
+                             .compact
+                             .group_by(&:restaurant)
       end
     end
   end

@@ -24,7 +24,7 @@ module Recommendations
       end
 
       def try_finding_most_expensive_items
-        sorted_items = items.sort_by(&:price).dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
+        sorted_items = items_available.sort_by(&:price).dup.reject { |i| i.matches_blacklist?(keyword_blacklist) }
 
         number_of_recommendations.times.map { |_| sorted_items.pop }.compact
       end
@@ -33,7 +33,7 @@ module Recommendations
         # Dedup
         number_of_recommendations.times.map do |_|
           budget_remaining = budget_post_tax
-          selected_items   = items.dup.to_a
+          selected_items   = items_available.dup.to_a
 
           [].tap do |recommendations|
             while budget_remaining != 0
@@ -61,8 +61,8 @@ module Recommendations
       end
 
       # Finds vegetarian and vegan items
-      def items
-        super.where("dietary_restrictions @> ARRAY[?]::varchar[]", ['Vegetarian'])
+      def items_available
+        @items_available ||= FoodItem.below(budget_post_tax).offered(date).vegetarian
       end
     end
   end
