@@ -19,7 +19,7 @@ interaction:
     service: web
     command: bundle exec rspec
   psql:
-    service: db
+    service: postgres
     command: psql -h db -U postgres
 
 provision:
