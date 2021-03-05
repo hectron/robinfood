@@ -11,8 +11,13 @@ x-main: &main
     FOODA_PASSWORD:
     SLACK_CHANNEL_TO_POST_TO:
     FOOD_BUDGET: 6
+    HISTFILE: /root/.bash_history
   volumes:
     - '.:/app:cached'
+    - ".docker/.pryrc:/root/.pryrc:ro"
+    - "bash_history:/root/.bash_history"
+    - "psql_history:/root/.psql_history"
+    - "irb_history:/root/.irb_history"
   tmpfs:
     - /tmp
   depends_on:
@@ -44,3 +49,6 @@ services:
 volumes:
   redis:
   postgres:
+  bash_history:
+  psql_history:
+  irb_history:
