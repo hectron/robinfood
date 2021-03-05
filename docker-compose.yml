@@ -12,14 +12,14 @@ x-main: &main
     SLACK_CHANNEL_TO_POST_TO:
     FOOD_BUDGET: 6
   volumes:
-    - '.:/usr/src/app'
+    - '.:/app'
   depends_on:
     - postgres
     - redis
 
 services:
   postgres:
-    image: 'postgres:11.2-alpine'
+    image: 'postgres:12-alpine'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 
