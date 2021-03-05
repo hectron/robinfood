@@ -24,8 +24,5 @@ RUN gem update --system
 ENV PORT 3000
 EXPOSE $PORT
 
-ENTRYPOINT ["bin/entrypoint.sh"]
-CMD ["prod_web"]
-
 RUN mkdir -p /app
 WORKDIR /app

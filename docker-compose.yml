@@ -12,7 +12,9 @@ x-main: &main
     SLACK_CHANNEL_TO_POST_TO:
     FOOD_BUDGET: 6
   volumes:
-    - '.:/app'
+    - '.:/app:cached'
+  tmpfs:
+    - /tmp
   depends_on:
     - postgres
     - redis
@@ -22,6 +24,7 @@ services:
     image: 'postgres:12-alpine'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
+      - './log:/var/log/psql_history'
 
   redis:
     image: 'redis'
